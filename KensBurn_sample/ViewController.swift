@@ -29,7 +29,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         images.append(UIImage(named: "1.jpeg"))
         images.append(UIImage(named: "2.jpeg"))
-//        images.append(UIImage(named: "images.png"))
+        images.append(UIImage(named: "images.png"))
 //        images.append(UIImage(named: "1.jpeg"))
         
     }
@@ -55,7 +55,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 //           
 //            }
 //
-        audioUrl = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("Buzz", ofType: "mp3")!)!
+        audioUrl = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("humtap", ofType: "mp3")!)!
 
         let imgsToVideo = ImgsToVideo()
         
@@ -122,15 +122,30 @@ class ImgsToVideo {
     var Audioasset:AVAsset!
     var pathsUrl = [NSURL]()
     var imagesGlobal : [UIImage]!
+    var eachImgDuration : CMTime!
+    
     
     
     func imgsToVid(images: [UIImage], audioUrl : NSURL , callBack : (outputVideo : NSURL) -> Void){
         
-        
-        
         imagesGlobal = images
         
+        Audioasset  = AVAsset.assetWithURL(audioUrl) as AVAsset
 
+        
+        let durationInSec = CMTimeGetSeconds(Audioasset.duration)
+        
+        println(durationInSec)
+        if images.count > 0{
+            self.eachImgDuration = CMTimeMakeWithSeconds(durationInSec /  Float64(images.count), 1)
+            
+            println(CMTimeGetSeconds(self.eachImgDuration))
+            
+            
+        }
+        else{
+            self.eachImgDuration = CMTimeMakeWithSeconds(durationInSec, 1)
+        }
         func VideoOut(image:UIImage, callBack : (outputVideo : NSURL) -> Void){
             
             var i:NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("temp", ofType: "mp4")!)!
@@ -138,7 +153,6 @@ class ImgsToVideo {
             //        println(firrstassest)
             
             //audioUrl = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("Buzz", ofType: "mp3")!)!
-            Audioasset  = AVAsset.assetWithURL(audioUrl) as AVAsset
             //        println(Audioasset)
             
             
@@ -154,15 +168,15 @@ class ImgsToVideo {
                 var AudioTrack:AVMutableCompositionTrack=mixComposition.addMutableTrackWithMediaType(AVMediaTypeAudio, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
                 
                 
-                AudioTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, Audioasset.duration), ofTrack: Audioasset.tracksWithMediaType(AVMediaTypeAudio)[0] as AVAssetTrack, atTime: kCMTimeZero, error: nil)
-                println("duration=\(Audioasset.duration.value)")
+                AudioTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, self.eachImgDuration), ofTrack: Audioasset.tracksWithMediaType(AVMediaTypeAudio)[0] as AVAssetTrack, atTime: kCMTimeZero, error: nil)
+                println("duration=\(self.eachImgDuration.value)")
                 
-                videTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, Audioasset.duration), ofTrack: firrstassest.tracksWithMediaType(AVMediaTypeVideo)[0] as AVAssetTrack, atTime: kCMTimeZero, error: nil)
+                videTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, self.eachImgDuration), ofTrack: firrstassest.tracksWithMediaType(AVMediaTypeVideo)[0] as AVAssetTrack, atTime: kCMTimeZero, error: nil)
                 
                 var mainInstruction:AVMutableVideoCompositionInstruction=AVMutableVideoCompositionInstruction()
                 
                 
-                mainInstruction.timeRange=CMTimeRangeMake(kCMTimeZero, Audioasset.duration)
+                mainInstruction.timeRange=CMTimeRangeMake(kCMTimeZero, self.eachImgDuration)
                 
                 var videoLayerinstruction:AVMutableVideoCompositionLayerInstruction=AVMutableVideoCompositionLayerInstruction(assetTrack: videTrack)
                 
@@ -192,7 +206,7 @@ class ImgsToVideo {
                 }
                 
                 videoLayerinstruction.setTransform(videAssetTrack.preferredTransform, atTime: kCMTimeZero)
-                videoLayerinstruction.setOpacity(0.0, atTime: Audioasset.duration)
+                videoLayerinstruction.setOpacity(0.0, atTime: self.eachImgDuration)
                 
                 
                 mainInstruction.layerInstructions = NSArray(objects: videoLayerinstruction)
@@ -221,7 +235,7 @@ class ImgsToVideo {
                 
                 var paths:NSArray=NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
                 var documentDirectory:NSString=paths.objectAtIndex(0) as NSString
-                var myPathDocs = documentDirectory.stringByAppendingPathComponent(NSString(format: "FinalVideo-%d.mov", arc4random()%1000))
+                var myPathDocs = documentDirectory.stringByAppendingPathComponent(NSString(format: "FinalVideo.mp4", arc4random()%1000))
                 var url = NSURL.fileURLWithPath(myPathDocs)
                 
                 //            self.paths.append(url!)
@@ -243,7 +257,7 @@ class ImgsToVideo {
                         
                         println(paths)
                         println(images)
-                        println("\(paths.count) = \(images.count)")
+                        println("\(self.pathsUrl.count) = \(images.count)")
                         
                         if self.pathsUrl.count == images.count {
                             println("Done.")

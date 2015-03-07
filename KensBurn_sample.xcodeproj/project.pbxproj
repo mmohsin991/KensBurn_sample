@@ -24,6 +24,7 @@
 		2DD91CC11AA766BB00EAD47A /* 2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2DD91CC01AA766BB00EAD47A /* 2.jpeg */; };
 		2DD91CC31AA766CA00EAD47A /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2DD91CC21AA766CA00EAD47A /* 1.jpeg */; };
 		2DD91CC51AA76D3200EAD47A /* imagess.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2DD91CC41AA76D3200EAD47A /* imagess.jpeg */; };
+		42BAF8771AA9FB4E00817A0D /* humtap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 42BAF8761AA9FB4E00817A0D /* humtap.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		2DD91CC01AA766BB00EAD47A /* 2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpeg; sourceTree = "<group>"; };
 		2DD91CC21AA766CA00EAD47A /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 1.jpeg; path = ../1.jpeg; sourceTree = "<group>"; };
 		2DD91CC41AA76D3200EAD47A /* imagess.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = imagess.jpeg; sourceTree = "<group>"; };
+		42BAF8761AA9FB4E00817A0D /* humtap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = humtap.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				2DD91CC01AA766BB00EAD47A /* 2.jpeg */,
 				2D7A79B71AA7393C0018D4F6 /* images.png */,
 				2D7A79B91AA73A4A0018D4F6 /* temp.mp4 */,
+				42BAF8761AA9FB4E00817A0D /* humtap.mp3 */,
 				2DD91CBE1AA7654700EAD47A /* play.mp3 */,
 				2DD419CE1AA85E250031C01E /* Buzz.mp3 */,
 				2D7A798F1AA71DB70018D4F6 /* AppDelegate.swift */,
@@ -236,6 +239,7 @@
 				2DD91CC11AA766BB00EAD47A /* 2.jpeg in Resources */,
 				2D7A79951AA71DB70018D4F6 /* Main.storyboard in Resources */,
 				2D7A799A1AA71DB70018D4F6 /* LaunchScreen.xib in Resources */,
+				42BAF8771AA9FB4E00817A0D /* humtap.mp3 in Resources */,
 				2D7A79971AA71DB70018D4F6 /* Images.xcassets in Resources */,
 				2DD419CF1AA85E250031C01E /* Buzz.mp3 in Resources */,
 				2DD91CBF1AA7654700EAD47A /* play.mp3 in Resources */,
